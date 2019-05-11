@@ -9,7 +9,6 @@ mongoose.connect('mongodb://localhost/fetcher');
 // });
 
 let repoSchema = mongoose.Schema({
-  // TODO: your schema here!
   repoID: { type: Number, unique: true },
   repoName: String,
   repoURL: String,
@@ -19,14 +18,15 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (err, data) => {
-  if (err) { return console.error(err) };
-  // TODO: Your code here
+let save = (docs) => {
   // This function should save a repo or repos to
   // the MongoDB
 
   // incoming data: array of repos formatted as documents for Repo schema
 
+  Repo.insertMany(docs, { ordered: false }, (err) => {
+      if (err) { console.error(err) }
+    });
 
 }
 
