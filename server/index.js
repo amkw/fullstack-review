@@ -5,13 +5,18 @@ const github = require('../helpers/github');
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/repos', function (req, res) {
-  // TODO - your code here!
   // This route should take the github username provided
   // and get the repo information from the github API, then
   // save the repo information in the database
-  // console.log(req);
-  github.getReposByUsername('octocat');
-  res.send('you rock!');
+  var data = '';
+  req.on('data', function(chunk) {
+    data += chunk;
+  });
+  req.on('end', function() {
+    req.body = data.toString();
+    github.getReposByUsername(req.body);
+    res.send('you rock!'); // TODO change to res.end()
+  });
 });
 
 app.get('/repos', function (req, res) {
