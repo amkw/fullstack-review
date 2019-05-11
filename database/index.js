@@ -28,6 +28,17 @@ let save = (docs) => {
       if (err) { console.error(err) }
     });
 
-}
+};
+
+let get = (cb) => {
+  Repo.find({}).sort({ stargazers_count: -1 }).limit(25).exec((err, queryResults) => {
+    if (err) {
+      console.error(err);
+    } else {
+      cb(queryResults);
+    }
+  });
+};
 
 module.exports.save = save;
+module.exports.get = get;
