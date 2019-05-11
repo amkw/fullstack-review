@@ -16,7 +16,7 @@ class App extends React.Component {
   search (term) {
     console.log(`${term} was searched`);
     $.post('http://localhost:1128/repos', term, (data) => {
-      console.log(data)
+      console.log(data) // TODO remove console.logs
       $('body').append('<em>Submitted! Refresh page to fetch repositories.</em>');
     });
   }
