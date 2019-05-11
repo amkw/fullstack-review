@@ -19,7 +19,7 @@ let repoSchema = mongoose.Schema({
 let Repo = mongoose.model('Repo', repoSchema);
 
 let save = (docs) => {
-  // This function should save a repo or repos to
+  // This function should save repos to
   // the MongoDB
 
   // incoming data: array of repos formatted as documents for Repo schema
