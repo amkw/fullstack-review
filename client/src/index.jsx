@@ -7,51 +7,40 @@ import RepoList from './components/RepoList.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      repos: [{
-        _id: '5cd71649ca418e133595b682',
-        __v: 0,
-        repoID: 1300192,
-        repoName: 'Spoon-Knife',
-        repoURL: 'https://github.com/octocat/Spoon-Knife',
-        stargazers_count: 10116,
-        repoOwner: 'octocat'
-      },
-      {
-        _id: '5cd71649ca418e133595b67f',
-        __v: 0,
-        repoID: 1296269,
-        repoName: 'Hello-World',
-        repoURL: 'https://github.com/octocat/Hello-World',
-        stargazers_count: 1487,
-        repoOwner: 'octocat'
-      },
-      {
-        _id: '5cd73103f161a715027246b5',
-        __v: 0,
-        repoID: 27586666,
-        repoName: 'Pimple',
-        repoURL: 'https://github.com/fabpot/Pimple',
-        stargazers_count: 68,
-        repoOwner: 'fabpot'
-      }]
-    }
 
+    this.state = {
+      repos: []
+    }
   }
+
+  componentDidMount() {
+    $.get('http://localhost:1128/repos', (data) => {
+      this.setState({ repos: data });
+    });
+  }
+
 
   search (term) {
     console.log(`${term} was searched`);
     $.post('http://localhost:1128/repos', term, (data) => {
       if (data === 'User not found') {
-        $('body').append('<em>User not found. Refresh page and try again.</em>');
+        if ($('body').children('em').length === 0) {
+          $('body').append('<em>User not found. Try again.</em>');
+        } else {
+          $('em').replaceWith('<em>User not found. Try again.</em>');
+        }
       } else {
-        $('body').append('<em>Submitted! Refresh page to fetch repositories.</em>');
+        if ($('body').children('em').length === 0) {
+          $('body').append('<em>Username submitted.</em>');
+        } else {
+          $('em').replaceWith('<em>Username submitted.</em>');
+        // this.setState({ repos: data }); // set State with data
+        }
       }
     });
   }
 
   render () {
-    console.log('App render ',this.state.repos);
     return (<div>
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
@@ -60,9 +49,8 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App repos={someData}/>, document.getElementById('app'));
 
-// console.log('someData' = someData);
+
 var someData = [{
   _id: '5cd71649ca418e133595b682',
   __v: 0,
@@ -288,3 +276,5 @@ var someData = [{
   stargazers_count: 0,
   repoOwner: 'octocat'
 }];
+
+ReactDOM.render(< App/>, document.getElementById('app'));

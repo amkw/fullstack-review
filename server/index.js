@@ -31,7 +31,7 @@ app.get('/repos', function (req, res) {
   // This route should send back the top 25 repos by highest stargazers_count
   console.log('GET request to /repos');
   db.get((data) => {
-    // received data already formatted for react components
+    res.send(data);
   });
 });
 
