@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
+
 // var db = mongoose.connection;
 // db.on('error', console.error.bind(console, 'connection error: '));
 // db.once('open', function() {
@@ -9,7 +10,7 @@ mongoose.connect('mongodb://localhost/fetcher');
 
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
-  repoID: Number,
+  repoID: { type: Number, unique: true },
   repoName: String,
   repoURL: String,
   stargazers_count: Number,
@@ -18,11 +19,15 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (err, record) => {
+let save = (err, data) => {
   if (err) { return console.error(err) };
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
+
+  // incoming data: array of repos formatted as documents for Repo schema
+
+
 }
 
 module.exports.save = save;
