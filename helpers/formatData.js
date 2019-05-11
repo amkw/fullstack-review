@@ -15,10 +15,4 @@ var formatDataForDB = function(JSONdata) {
   return result;
 }
 
-var formatDataForHTML = function(JSONdata) {
-  // for every document in JSONdata
-    //
-}
-
 module.exports.formatDataForDB = formatDataForDB;
-module.exports.formatDataForHTML = formatDataForHTML;
