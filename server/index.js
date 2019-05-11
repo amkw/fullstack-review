@@ -18,8 +18,11 @@ app.post('/repos', function (req, res) {
     github.getReposByUsername(req.body, (result) => {
       if (result !== 'error') {
         // save repo to database
-        db.save(result);
-        res.send('Success');
+        Promise.resolve(db.save(result))
+          .then(() => {
+              db.get((data) => {
+                res.send(data);
+          })})
       } else {
         res.send('User not found');
       }
@@ -29,7 +32,6 @@ app.post('/repos', function (req, res) {
 
 app.get('/repos', function (req, res) {
   // This route should send back the top 25 repos by highest stargazers_count
-  console.log('GET request to /repos');
   db.get((data) => {
     res.send(data);
   });

@@ -34,8 +34,8 @@ class App extends React.Component {
           $('body').append('<em>Username submitted.</em>');
         } else {
           $('em').replaceWith('<em>Username submitted.</em>');
-        // this.setState({ repos: data }); // set State with data
         }
+        this.setState({ repos: data });
       }
     });
   }
