@@ -16,7 +16,7 @@ let getReposByUsername = (username, cb) => {
   request.get(options, (err, res) => {
     if (err) { return console.error(err) }
     if (JSON.parse(res.body).message !== 'Not Found') {
-    const documents = format.formatData(JSON.parse(res.body));
+    const documents = format.formatDataForDB(JSON.parse(res.body));
       cb(documents);
     } else {
       cb('error');

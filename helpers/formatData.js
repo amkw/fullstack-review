@@ -1,4 +1,4 @@
-var formatData = function(JSONdata) {
+var formatDataForDB = function(JSONdata) {
   const owner = JSONdata[0].owner.login;
   const result = [];
 
@@ -15,4 +15,10 @@ var formatData = function(JSONdata) {
   return result;
 }
 
-module.exports.formatData = formatData;
+var formatDataForHTML = function(JSONdata) {
+  // for every document in JSONdata
+    //
+}
+
+module.exports.formatDataForDB = formatDataForDB;
+module.exports.formatDataForHTML = formatDataForHTML;

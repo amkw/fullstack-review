@@ -2,6 +2,7 @@ const express = require('express');
 let app = express();
 const github = require('../helpers/github');
 const db = require('../database/index');
+const format = require('../helpers/formatData');
 
 app.use(express.static(__dirname + '/../client/dist'));
 
@@ -31,7 +32,7 @@ app.get('/repos', function (req, res) {
   // This route should send back the top 25 repos by highest stargazers_count
   console.log('GET request to /repos');
   db.get((data) => {
-    console.log(data);
+    format.formatDataForHTML(data);
   });
 });
 
